@@ -7,13 +7,13 @@ class Status(Enum):
     Retired = "Retired"
 
 class Agent:
-    def __init__(self,code_name:str,real_name:str,location,status:Status,missions_completed:int,agent_id:int = None):
-        self.id = agent_id
-        self.codeName = code_name
-        self.realName = real_name
+    def __init__(self,codeName:str,realName:str,location,status:Status,missionsCompleted:int,id:int = None):
+        self.id = id
+        self.codeName = codeName
+        self.realName = realName
         self.location = location
         self.status = status
-        self.missionsCompleted = missions_completed
+        self.missionsCompleted = missionsCompleted
 
     def __str__(self):
         return f"id: {self.id} \ncode name: {self.codeName} \nreal name: {self.realName} \nlocation: {self.location} \nstatus: {self.status} \nmissions completed: {self.missionsCompleted}"

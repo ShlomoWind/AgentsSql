@@ -38,7 +38,7 @@ class AgentDal:
         return Agent(**result) if result else None
 
     def update_agent(self,agent:Agent):
-        query = "UPDATE agents SET(codeName = %s,realName = %s,location = %s,status = %s,missionsCompleted = %s) WHERE id = %s"
+        query = "UPDATE agents SET codeName = %s,realName = %s,location = %s,status = %s,missionsCompleted = %s WHERE id = %s"
         self.cursor.execute(query,(
             agent.codeName,
             agent.realName,
@@ -50,6 +50,7 @@ class AgentDal:
         self.conn.commit()
 
     def delete_agent(self,agent_id:int):
-        query = "DELETE * FROM agents WHERE id = %s"
+        query = "DELETE FROM agents WHERE id = %s"
         self.cursor.execute(query,(agent_id,))
         self.conn.commit()
+        return self.cursor.rowcount > 0
