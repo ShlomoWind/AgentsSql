@@ -31,6 +31,25 @@ class AgentDal:
         result = self.cursor.fetchall()
         return [Agent(**row) for row in result]
 
+    def get_agent_by_id(self,agent_id:int):
+        query = "SELECT * FROM agents WHERE id = %s"
+        self.cursor.execute(query,(agent_id,))
+        result = self.cursor.fetchone()
+        return Agent(**result) if result else None
 
+    def update_agent(self,agent:Agent):
+        query = "UPDATE agents SET(codeName = %s,realName = %s,location = %s,status = %s,missionsCompleted = %s) WHERE id = %s"
+        self.cursor.execute(query,(
+            agent.codeName,
+            agent.realName,
+            agent.location,
+            agent.status.value,
+            agent.missionsCompleted,
+            agent.id
+        ))
+        self.conn.commit()
 
-
+    def delete_agent(self,agent_id:int):
+        query = "DELETE * FROM agents WHERE id = %s"
+        self.cursor.execute(query,(agent_id,))
+        self.conn.commit()
