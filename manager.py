@@ -22,8 +22,16 @@ class Manager:
         real_name = input("Real name: ")
         location = input("Location: ")
         status_input = input("Status (Active, Injured, Missing, Retired): ")
-        missions_completed = int(input("Missions completed: "))
-        status = Status(status_input)
+        try:
+            missions_completed = int(input("Missions completed: "))
+        except ValueError:
+            print("is not a number")
+            return self.agent_user_input()
+        try:
+            status = Status(status_input)
+        except ValueError:
+            print("invalid status")
+            return self.agent_user_input()
         agent = Agent(code_name,real_name,location,status,missions_completed)
         return agent
 
@@ -35,6 +43,7 @@ class Manager:
                 case "1":
                     agent = self.agent_user_input()
                     self.dal.add_agent(agent)
+                    print("** adding! **")
                 case "2":
                     agents = self.dal.get_all_agents()
                     if not agents:
@@ -55,11 +64,24 @@ class Manager:
                     except ValueError:
                         print("invalid ID! enter a number")
                 case "4":
-
+                    agent_id = int(input("enter id of agent do you want change: "))
+                    exist = self.dal.get_agent_by_id(agent_id)
+                    if not exist:
+                        print("not agent")
+                        continue
+                    print("enter the new details")
+                    new_agent = self.agent_user_input()
+                    new_agent.id = agent_id
+                    self.dal.update_agent(new_agent)
+                    print("** update! **")
                 case "5":
                     try:
                         agent_id = int(input("enter the agent id to delete: "))
-                        self.dal.delete_agent(agent_id)
+                        delete =  self.dal.delete_agent(agent_id)
+                        if delete:
+                            print("** deleted! **")
+                        else:
+                            print("no agent found with this id.")
                     except ValueError:
                         print("invalid agent id")
                 case "6":
