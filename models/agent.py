@@ -8,12 +8,12 @@ class Status(Enum):
 
 class Agent:
     def __init__(self,code_name:str,real_name:str,location,status:Status,missions_completed:int,agent_id:int = None):
-        self.agent_id = agent_id
-        self.code_name = code_name
-        self.real_name = real_name
+        self.id = agent_id
+        self.codeName = code_name
+        self.realName = real_name
         self.location = location
         self.status = status
-        self.missions_completed = missions_completed
+        self.missionsCompleted = missions_completed
 
     def __str__(self):
-        return f"id: {self.agent_id} \ncode name: {self.code_name} \nreal name: {self.real_name} \nlocation: {self.location} \nstatus: {self.status} \nmissions completed: {self.missions_completed}"
+        return f"id: {self.id} \ncode name: {self.codeName} \nreal name: {self.realName} \nlocation: {self.location} \nstatus: {self.status} \nmissions completed: {self.missionsCompleted}"
